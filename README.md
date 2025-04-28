@@ -85,5 +85,3 @@ This project is made for educational purposes, helping beginners understand how 
 - Structure backend projects cleanly
 
 ---
-
-# 🎉 Happy Coding!
