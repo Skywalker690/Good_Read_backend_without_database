@@ -10,5 +10,4 @@ public class MavenApplication {
 
 		SpringApplication.run(MavenApplication.class, args);
 	}
-
 }

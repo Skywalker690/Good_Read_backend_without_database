@@ -1,5 +1,6 @@
 package com.sanjo.maven;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 @RestController
 public class BookController {
 
-    BookServices bookServices = new BookServices();
-
+    @Autowired
+    public BookH2Service bookServices;
     @GetMapping("/books")
     public ArrayList<Book> getBooks(){
         return bookServices.getBooks();
@@ -20,7 +21,8 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public ArrayList<Book> addBook(@RequestBody Book book){
+    public Book addBook(@RequestBody Book book){
+
         return bookServices.addBook(book);
     }
 

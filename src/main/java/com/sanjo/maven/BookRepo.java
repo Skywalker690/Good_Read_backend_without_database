@@ -6,8 +6,9 @@ public interface BookRepo {
 
     ArrayList<Book> getBooks();
     Book getBook(int bookId);
-    ArrayList<Book> addBook(Book book);
+    Book addBook(Book book);
     Book updateBook(int bookId,Book book);
     ArrayList<Book> deleteBook(int bookId);
+
 
 }
