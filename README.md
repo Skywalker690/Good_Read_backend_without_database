@@ -1,5 +1,5 @@
 
-# 📚 Good Read Backend (Without Database)
+# 📚 Good Read Backend
 
 A simple and clean **Spring Boot** based backend application to perform CRUD operations on a book collection, using an in-memory **HashMap**.  
 This project is ideal for beginners to understand how REST APIs are built using Java and Spring Boot without involving a database.
