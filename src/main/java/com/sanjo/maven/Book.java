@@ -1,9 +1,19 @@
 package com.sanjo.maven;
+import jakarta.persistence.*;
 
+@Entity
+@Table(schema = "book")
 public class Book {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bookId;
+
+    @Column(name = "name")
     private String bookName;
+
+    @Column(name = "imageurl")
     private String imageUrl;
 
     Book(int bookId,String bookName,String imageUrl){
