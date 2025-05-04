@@ -1,44 +1,42 @@
 package com.sanjo.maven;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
+@RequestMapping("/books")
 public class BookController {
 
     @Autowired
-    public BookJpaService bookServices;
-    //public BookH2Service bookServices;
-    @GetMapping("/books")
-    public ArrayList<Book> getBooks(){
+    private BookJpaService bookServices;
+
+    @GetMapping
+    public List<Book> getBooks() {
         return bookServices.getBooks();
     }
 
-    @GetMapping("/books/{bookId}")
-    public Book getBook(@PathVariable int bookId){
+    @GetMapping("/{bookId}")
+    public Book getBook(@PathVariable int bookId) {
         return bookServices.getBook(bookId);
     }
 
-    @PostMapping("/books")
-    public Book addBook(@RequestBody Book book){
-
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Book addBook(@RequestBody Book book) {
         return bookServices.addBook(book);
     }
 
-    @PutMapping("/books/{bookId}")
-    public Book updateBook(@PathVariable int bookId,@RequestBody Book book){
-        return bookServices.updateBook(bookId,book);
+    @PutMapping("/{bookId}")
+    public Book updateBook(@PathVariable int bookId, @RequestBody Book book) {
+        return bookServices.updateBook(bookId, book);
     }
 
-    @DeleteMapping("/books/{bookId}")
-    public ArrayList<Book> deleteBook(@PathVariable int bookId){
-        return bookServices.deleteBook(bookId);
+    @DeleteMapping("/{bookId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable int bookId) {
+        bookServices.deleteBook(bookId);
     }
-
-
-
-
-
 }
