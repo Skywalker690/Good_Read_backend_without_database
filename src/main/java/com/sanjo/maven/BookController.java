@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class BookController {
 
     @Autowired
-    public BookH2Service bookServices;
+    public BookJpaService bookServices;
+    //public BookH2Service bookServices;
     @GetMapping("/books")
     public ArrayList<Book> getBooks(){
         return bookServices.getBooks();
