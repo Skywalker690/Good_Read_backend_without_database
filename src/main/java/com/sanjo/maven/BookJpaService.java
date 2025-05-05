@@ -1,7 +1,9 @@
 package com.sanjo.maven;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 
@@ -18,40 +20,50 @@ public class BookJpaService implements BookRepo {
 
     @Override
     public Book getBook(int bookId) {
-        return bookJpaRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException("Book with ID " + bookId + " not found"));
+        try {
+            return  bookJpaRepository.findById(bookId).get();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
+        }
     }
 
     @Override
     public Book addBook(Book book) {
-        if (book == null || book.getBookName() == null || book.getBookName().isEmpty()) {
-            throw new IllegalArgumentException("Book name is required");
-        }
-        return bookJpaRepository.save(book);
+        bookJpaRepository.save(book);
+        return book;
+
     }
 
-    @Override
     public Book updateBook(int bookId, Book updatedBook) {
-        Book existingBook = bookJpaRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException("Book with ID " + bookId + " not found"));
-        existingBook.setBookName(updatedBook.getBookName());
-        existingBook.setImageUrl(updatedBook.getImageUrl());
+
+
+        Book existingBook = getBook(bookId);
+        if (existingBook == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
+        }
+
+        if (updatedBook.getBookName() != null) {
+            existingBook.setBookName(updatedBook.getBookName());
+        }
+
+        if (updatedBook.getImageUrl() != null) {
+            existingBook.setImageUrl(updatedBook.getImageUrl());
+        }
+
         return bookJpaRepository.save(existingBook);
     }
 
+
     @Override
     public ArrayList<Book> deleteBook(int bookId) {
-        if (!bookJpaRepository.existsById(bookId)) {
-            throw new BookNotFoundException("Book with ID " + bookId + " not found");
+
+        Book book = getBook(bookId);
+        if (book == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found");
         }
         bookJpaRepository.deleteById(bookId);
-        return (ArrayList<Book>) bookJpaRepository.findAll();
+        return getBooks();
+
     }
 }
 
-// Custom exception
-class BookNotFoundException extends RuntimeException {
-    public BookNotFoundException(String message) {
-        super(message);
-    }
-}
