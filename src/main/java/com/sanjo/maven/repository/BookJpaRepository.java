@@ -1,7 +1,7 @@
-package com.sanjo.maven;
+package com.sanjo.maven.repository;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sanjo.maven.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

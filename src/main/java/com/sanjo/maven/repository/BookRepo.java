@@ -1,4 +1,6 @@
-package com.sanjo.maven;
+package com.sanjo.maven.repository;
+
+import com.sanjo.maven.model.Book;
 
 import java.util.ArrayList;
 

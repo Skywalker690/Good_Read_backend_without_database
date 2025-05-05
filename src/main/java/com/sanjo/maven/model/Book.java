@@ -1,7 +1,6 @@
-package com.sanjo.maven;
+package com.sanjo.maven.model;
 
 import jakarta.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "book")

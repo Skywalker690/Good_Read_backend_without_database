@@ -1,5 +1,8 @@
-package com.sanjo.maven;
+package com.sanjo.maven.controller;
 
+import com.sanjo.maven.model.Book;
+import com.sanjo.maven.service.BookJpaService;
+import com.sanjo.maven.model.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,9 @@ public class BookController {
 
     @Autowired
     private BookJpaService bookServices;
+
+    @Autowired
+    private Publisher publisher;
 
     @GetMapping
     public List<Book> getBooks() {
@@ -35,8 +41,15 @@ public class BookController {
     }
 
     @DeleteMapping("/{bookId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable int bookId) {
         bookServices.deleteBook(bookId);
     }
+
+    @GetMapping("/{bookId}/publisher")
+    public Book getPublisher(@PathVariable int bookId) {
+        return publisher.getPublisher(bookId);
+    }
+
+
+
 }
