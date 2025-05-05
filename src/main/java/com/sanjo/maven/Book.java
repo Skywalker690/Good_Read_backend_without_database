@@ -55,29 +55,7 @@ public class Book {
         return this.imageUrl;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", bookName='" + bookName + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return bookId == book.bookId &&
-                Objects.equals(bookName, book.bookName) &&
-                Objects.equals(imageUrl, book.imageUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(bookId, bookName, imageUrl);
-    }
 }
 
 
