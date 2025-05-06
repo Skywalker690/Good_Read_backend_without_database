@@ -3,6 +3,7 @@ package com.sanjo.maven.controller;
 import com.sanjo.maven.model.Book;
 import com.sanjo.maven.service.BookJpaService;
 import com.sanjo.maven.model.Publisher;
+import com.sanjo.maven.service.PublisherJpaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class BookController {
     private BookJpaService bookServices;
 
     @Autowired
-    private Publisher publisher;
+    private PublisherJpaService publisher;
 
     @GetMapping
     public List<Book> getBooks() {
@@ -45,10 +46,7 @@ public class BookController {
         bookServices.deleteBook(bookId);
     }
 
-    @GetMapping("/{bookId}/publisher")
-    public Book getPublisher(@PathVariable int bookId) {
-        return publisher.getPublisher(bookId);
-    }
+
 
 
 
