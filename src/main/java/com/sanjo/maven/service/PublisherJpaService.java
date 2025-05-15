@@ -21,15 +21,13 @@ public class PublisherJpaService implements PublisherRepository {
     @Override
     public ArrayList<Publisher> getPublishers() {
         List<Publisher> publisherList = publisherJpaRepository.findAll();
-        ArrayList<Publisher> publishers = new ArrayList<>(publisherList);
-        return publishers;
+        return new ArrayList<>(publisherList);
     }
 
     @Override
     public Publisher getPublisherById(Integer publisherId) {
         try{
-            Publisher publisher = publisherJpaRepository.findById(publisherId).get();
-            return publisher;
+            return publisherJpaRepository.findById(publisherId).get();
         }catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -45,7 +43,9 @@ public class PublisherJpaService implements PublisherRepository {
     public Publisher updatePublisher(int publisherId, Publisher publisher) {
         try{
             Publisher new_publisher = publisherJpaRepository.findById(publisherId).get();
-            if(publisher.getPublisherName()!=null)new_publisher.setPublisherName(publisher.getPublisherName());
+            if(publisher.getPublisherName()!=null) {
+                new_publisher.setPublisherName(publisher.getPublisherName());
+            }
             publisherJpaRepository.save(new_publisher);
             return new_publisher;
         }catch(Exception e){

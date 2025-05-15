@@ -7,8 +7,8 @@ import jakarta.persistence.*;
 public class Book {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int bookId;
 
     @Column(name = "name")
@@ -17,47 +17,51 @@ public class Book {
     @Column(name = "imageurl")
     private String imageUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "publisherid")
+    private Publisher publisher;
+
     // Required by JPA
     public Book() {
     }
 
-    public Book(int bookId, String bookName, String imageUrl) {
+    public Book(int bookId, String bookName, String imageUrl, Publisher publisher) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.imageUrl = imageUrl;
+        this.publisher=publisher;
     }
 
-    // Getters and setters (unchanged)
-
-
-    public void setBookId(int bookId){
-        this.bookId=bookId;
+    // Getters and Setters
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBookName(String bookName){
-        this.bookName=bookName;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
-    public void setImageUrl(String imageUrl){
-        this.imageUrl=imageUrl;
+    public String getBookName() {
+        return bookName;
     }
 
-    public int getBookId(){
-        return this.bookId;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public String  getBookName(){
-        return this.bookName;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public String getImageUrl(){
-        return this.imageUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
 
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 }
-
-
-
-
-
